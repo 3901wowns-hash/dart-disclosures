@@ -20,7 +20,7 @@ from collect import BASE_DIR, CONFIG_PATH, DATA_PATH, KST, load_api_key
 
 SUMMARY_PATH = BASE_DIR / "docs" / "data" / "summaries.json"
 DOCUMENT_URL = "https://opendart.fss.or.kr/api/document.xml"
-PARSER_VERSION = 1
+PARSER_VERSION = 2
 MAX_PER_RUN = 50  # 한 번 실행에 새로 정리할 최대 건수
 
 # 카드에서 뺄 항목 (절차 · 연락처 · 참석 여부 등)
@@ -117,17 +117,50 @@ def to_number(text):
         return None
 
 
-def fmt_won(won):
-    """원 단위 금액을 '1.23조원', '515억원' 처럼 읽기 쉽게 바꾼다."""
+def fmt_won(won, mark_approx=True):
+    """원 단위 금액을 '1.23조원', '515억원' 처럼 읽기 쉽게 바꾼다. 반올림했으면 앞에 '약'을 붙인다."""
     sign = "-" if won < 0 else ""
     w = abs(won)
     if w >= 10**12:
-        return f"{sign}{w / 10**12:,.2f}".rstrip("0").rstrip(".") + "조원"
-    if w >= 10**10:
-        return f"{sign}{w / 10**8:,.0f}억원"
-    if w >= 10**8:
-        return f"{sign}{w / 10**8:,.1f}".rstrip("0").rstrip(".") + "억원"
-    return f"{sign}{w:,.0f}원"
+        unit, digits, name = 10**12, 2, "조원"
+    elif w >= 10**10:
+        unit, digits, name = 10**8, 0, "억원"
+    elif w >= 10**8:
+        unit, digits, name = 10**8, 1, "억원"
+    else:
+        return f"{sign}{w:,.0f}원"
+    shown = round(w / unit, digits)
+    text = f"{shown:,.{digits}f}".rstrip("0").rstrip(".") if digits else f"{shown:,.0f}"
+    approx = mark_approx and abs(shown * unit - w) >= 1
+    return f"{'약 ' if approx else ''}{sign}{text}{name}"
+
+
+UNIT_RE = re.compile(r"\s*\((원|주|%|백만원|천원|억원|조원|명|통화단위)\)\s*$")
+
+
+def split_unit(label):
+    """'취득금액(원)' → ('취득금액', '원'), '기 타(주)' → ('기타', '주')"""
+    m = UNIT_RE.search(label)
+    unit = m[1] if m else None
+    name = UNIT_RE.sub("", label).strip()
+    if re.fullmatch(r"(\S\s)+\S", name):  # '기 타', '회 사 명' 처럼 글자마다 띄어 쓴 이름
+        name = name.replace(" ", "")
+    return name, unit
+
+
+def fmt_value(value, unit):
+    """값에 단위를 붙인다. 원 단위 큰 금액은 '약 2.51조원 (2,510,000,000,000원)' 처럼 쓴다."""
+    n = to_number(value)
+    if n is None or unit is None:
+        return clean_date(value)
+    if unit in UNIT_TO_WON:
+        won = n * UNIT_TO_WON[unit]
+        if abs(won) >= 10**8:
+            return f"{fmt_won(won)} ({value}{unit})" if unit == "원" else fmt_won(won)
+        return f"{value}{unit}"
+    if unit == "통화단위":
+        return value
+    return f"{value}{unit}"
 
 
 def fmt_pct(text):
@@ -166,13 +199,94 @@ def read_sections(table):
 
 
 def section_text(rows):
+    """참고 사항처럼 글로 된 항목을 한 문자열로 잇는다."""
     parts = []
     for row in rows:
         cells = [c for c in row if c]
-        if not cells or is_empty(cells[-1]):  # 값 칸이 비어 있는 행 ('기타주식 -', '시작일 -')
+        if not cells or is_empty(cells[-1]):
             continue
         parts.append(" ".join(c for c in cells if not is_empty(c)))
     return clean_date(" · ".join(parts))
+
+
+def section_fields(label, rows):
+    """항목 하나를 [이름, 값, 묶음이름] 목록으로 바꾼다.
+
+    - '보통주식 53,285,968' 처럼 값이 하나면 항목 이름을 그대로 쓴다.
+    - '취득금액(원) … 자산총액(원) …' 처럼 여러 값이면 한 줄씩 나누고 항목 이름을 묶음으로 둔다.
+    - '시작일 / 종료일' 은 '2026-08-24 ~ 2026-11-21' 한 줄로 합친다.
+    - '재무내용(백만원) 자산총계 … 자본금 …' 처럼 단위가 붙은 묶음은 한 줄로 모은다.
+    """
+    base, base_unit = split_unit(label)
+    entries = []                     # [이름, 값, 하위칸에서 왔는지]
+    group, gunit = None, None
+    combined = {}                    # 단위 묶음 이름 → entries 위치
+
+    def add(name, value, from_sub):
+        entries.append([name, shorten(value), from_sub])
+
+    for row in rows:
+        cells = [c for c in row if c]
+        if not cells:
+            continue
+        if len(cells) == 1:
+            if not is_empty(cells[0]):
+                add(base, fmt_value(cells[0], base_unit), False)
+            group = None
+            continue
+        if len(cells) % 2 == 1:      # 맨 앞 칸이 묶음 이름 ('채권자이의 제출기간', '재무내용(백만원)')
+            group, gunit = split_unit(cells[0])
+            cells = cells[1:]
+        elif not (group and (gunit or cells[0] == "종료일")):
+            group, gunit = None, None
+
+        for key_raw, value in zip(cells[0::2], cells[1::2]):
+            if is_empty(value):
+                continue
+            key, kunit = split_unit(key_raw)
+            unit = kunit or gunit or base_unit
+            shown = fmt_value(value, unit)
+            owner = group or base
+            if key in ("시작일", "종료일"):
+                last = next((e for e in reversed(entries) if e[0] == owner), None)
+                if key == "종료일" and last and "~" not in last[1]:
+                    last[1] = f"{last[1]} ~ {shown}"
+                else:
+                    add(owner, shown if key == "시작일" else f"~ {shown}", owner != base)
+            elif key in ("보통주식", "보통주"):
+                add(owner, shown, owner != base)
+            elif group and gunit:    # 단위 묶음은 한 줄로 모은다
+                if group in combined:
+                    entries[combined[group]][1] += f" · {key} {shown}"
+                else:
+                    combined[group] = len(entries)
+                    add(group, f"{key} {shown}", True)
+            else:
+                add(f"{key}" if not group else f"{group} {key}", shown, True)
+
+    if len(entries) == 1 and entries[0][2] and entries[0][0] != base:
+        name, value, _ = entries[0]  # 하위칸이 하나뿐이면 '처분방법: 기타 47,900주' 처럼 한 줄로
+        return [[base, f"{name} {value}", None]]
+    multi = len(entries) > 1
+    return [[name, value, base if (multi and name != base) else None] for name, value, _ in entries]
+
+
+BOILERPLATE = re.compile(
+    r"한국채택국제회계기준|K-IFRS|외부\s?감사인|회계감사|회계검토|잠정치|확정치|변동될 수|변경될 수|"
+    r"재공시|편의를 위해|양지하시기|^관련공시"
+)
+
+
+def note_points(text):
+    """참고 사항을 항목별로 나누고, 매번 같은 안내 문구는 뺀다."""
+    parts = re.split(r"(?:^|\s)(?:-|\*|※|□|ㆍ)\s+|(?:^|(?<=다\.)\s)\d{1,2}[.)]\s+", text)
+    points = []
+    for p in parts:
+        p = p.strip(" .·")
+        if len(p) < 4 or BOILERPLATE.search(p):
+            continue
+        points.append(shorten(p, 250))
+    return points[:8]
 
 
 def find(sections, label_pattern, sub=None):
@@ -198,6 +312,7 @@ def find(sections, label_pattern, sub=None):
 def won_of(text):
     n = to_number(text or "")
     return fmt_won(n) if n is not None else text
+
 
 
 def funds(sections):
@@ -228,7 +343,7 @@ def quarter_of(start, end):
 
 
 def read_earnings(tables):
-    unit, period, metrics = None, None, {}
+    unit, period, base_period, metrics = None, None, None, {}
     for t in tables:
         for row in t:
             for c in row:
@@ -238,6 +353,8 @@ def read_earnings(tables):
             # 실적기간 '당기실적 2026-04-01 ~ 2026-06-30' 으로 분기를 정한다. (회사마다 '26.2Q', '2026년 2분기' 등 표기가 달라서)
             if not period and len(row) >= 4 and row[0] == "당기실적" and row[2] == "~":
                 period = quarter_of(row[1], row[3])
+            if not base_period and len(row) >= 4 and row[0] == "전년동기실적" and row[2] == "~":
+                base_period = quarter_of(row[1], row[3])
             if len(row) >= 9 and row[0] in METRICS and row[1] == "당해실적":
                 metrics[row[0]] = row[2:9]  # 정정 공시는 뒤에 나오는 정정 후 값이 덮어쓴다
     if not unit or not metrics:
@@ -249,14 +366,15 @@ def read_earnings(tables):
         if not v or is_empty(v[0]):
             continue
         cur, prev, qoq, qoq_turn, base, yoy, yoy_turn = v
-        n = to_number(cur)
+        to_won = lambda x: fmt_won(to_number(x) * UNIT_TO_WON[unit]) if to_number(x) is not None else (x if not is_empty(x) else "-")
         rows.append({
             "name": name,
-            "value": fmt_won(n * UNIT_TO_WON[unit]) if n is not None else cur,
+            "value": to_won(cur),
+            "base": to_won(base),
             "qoq": qoq_turn if not is_empty(qoq_turn) else (fmt_pct(qoq) if not is_empty(qoq) else "-"),
             "yoy": yoy_turn if not is_empty(yoy_turn) else (fmt_pct(yoy) if not is_empty(yoy) else "-"),
         })
-    return {"period": period, "unit": unit, "rows": rows} if rows else None
+    return {"period": period, "base_period": base_period, "unit": unit, "rows": rows} if rows else None
 
 
 def earnings_headline(earnings):
@@ -341,18 +459,16 @@ def headline_for(category, report_nm, s):
 
 def summarize(item, raw):
     tables = read_tables(raw)
-    result = {"v": PARSER_VERSION, "headline": None, "fields": [], "earnings": None, "note": None}
+    result = {"v": PARSER_VERSION, "headline": None, "correction": None, "fields": [], "earnings": None, "note": []}
 
     for t in tables[:2]:
         for row in t:
             if row and row[0] == "종속회사인" and len(row) > 1:
-                result["fields"].append(["종속회사", row[1]])
-            if row and row[0] == "정정일자":
-                result["fields"].append(["정정일자", row[1] if len(row) > 1 else ""])
+                result["fields"].append(["종속회사", row[1], None])
     for t in tables:
         for row in t:
             if row and re.match(r"^3\.\s*정정사유", row[0]) and len(row) > 1:
-                result["fields"].append(["정정사유", shorten(row[1])])
+                result["correction"] = shorten(clean_date(row[1]), 200)
 
     if item["category"] == "잠정실적":
         earnings = read_earnings(tables)
@@ -367,16 +483,14 @@ def summarize(item, raw):
         result["headline"] = headline_for(item["category"], item["report_nm"], sections)
 
     for label, rows in sections:
-        text = section_text(rows)
-        if not text:
-            continue
         if NOTE_LABEL.search(label):
-            result["note"] = shorten(text, 600)
+            text = section_text(rows)
+            result["note"] = note_points(text) if text else []
         elif item["category"] != "잠정실적" and not SKIP_LABEL.search(label):
-            result["fields"].append([label, shorten(text)])
+            result["fields"].extend(section_fields(label, rows))
 
     if not result["headline"]:
-        result["headline"] = join(*[v for k, v in result["fields"][:2] if len(v) <= 60]) or None
+        result["headline"] = join(*[f[1] for f in result["fields"][:2] if len(f[1]) <= 60]) or None
     return result
 
 
@@ -403,7 +517,7 @@ def main():
             print(f"  [건너뜀] {item['corp_name']} {item['report_nm']} ({item['rcept_no']}): {e}")
 
     keep = {i["rcept_no"] for i in targets}
-    store = {"version": PARSER_VERSION, "items": {k: v for k, v in summaries.items() if k in keep}}
+    store = {"version": PARSER_VERSION, "since": since, "items": {k: v for k, v in summaries.items() if k in keep}}
     SUMMARY_PATH.write_text(json.dumps(store, ensure_ascii=False, indent=1), encoding="utf-8")
     print(f"요약: 대상 {len(targets)}건 (최근 {summary_days}일) 중 새로 정리 {done}건, 실패 {failed}건, 저장 {len(store['items'])}건")
     if failed and not done:

@@ -8,12 +8,14 @@
   :root {
     --bg: #f6f7f9; --panel: #ffffff; --text: #1a1d21; --muted: #6b7280; --line: #e5e7eb;
     --accent: #1d4ed8; --accent-soft: #e8eefc; --new: #b45309; --new-soft: #fef3c7;
+    --fix: #7c3aed; --fix-soft: #f1eafe; --up: #d92d20; --down: #1d4ed8;
     color-scheme: light;
   }
   @media (prefers-color-scheme: dark) {
     :root {
       --bg: #111316; --panel: #1a1d21; --text: #e6e8eb; --muted: #9aa1ab; --line: #2c3036;
       --accent: #7aa2ff; --accent-soft: #1e2a46; --new: #fbbf24; --new-soft: #3a2d0f;
+      --fix: #c4a5ff; --fix-soft: #2d2342; --up: #ff7b72; --down: #7aa2ff;
       color-scheme: dark;
     }
   }
@@ -31,59 +33,84 @@
   }
   .filters input { flex: 1 1 200px; }
   .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
-  .chip { font: inherit; font-size: .85rem; cursor: pointer; border: 1px solid var(--line);
+  .chip { font: inherit; font-size: .85rem; cursor: pointer; border: 1px solid var(--line); white-space: nowrap;
           background: var(--panel); color: var(--text); border-radius: 999px; padding: 4px 12px; }
   .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
 
   .summary { color: var(--muted); font-size: .88rem; margin-bottom: 8px; }
-  .table-box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
-  table { width: 100%; border-collapse: collapse; }
-  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
-  th { font-size: .82rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
-  tr:last-child td { border-bottom: 0; }
-  td.date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  .table-box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow: hidden; }
+  #list { width: 100%; border-collapse: collapse; }
+  #list > thead th, #list > tbody > tr > td {
+    text-align: left; padding: 12px 14px; border-bottom: 1px solid var(--line); vertical-align: top;
+  }
+  #list > thead th { font-size: .82rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  #list > tbody > tr:last-child > td { border-bottom: 0; }
+  td.date { white-space: nowrap; font-variant-numeric: tabular-nums; color: var(--muted); }
   td.corp { white-space: nowrap; font-weight: 600; }
+  td.report { width: 62%; overflow-wrap: anywhere; }
   .tag { display: inline-block; font-size: .78rem; padding: 2px 8px; border-radius: 6px;
          background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
-  .new { display: inline-block; font-size: .72rem; font-weight: 700; padding: 1px 6px; border-radius: 4px;
-         background: var(--new-soft); color: var(--new); margin-left: 6px; }
+  .badge { display: inline-block; font-size: .72rem; font-weight: 700; padding: 1px 6px; border-radius: 4px;
+           margin-left: 6px; vertical-align: 1px; }
+  .badge.new { background: var(--new-soft); color: var(--new); }
+  .badge.fix { background: var(--fix-soft); color: var(--fix); }
   a { color: var(--text); text-decoration: none; }
   a:hover { color: var(--accent); text-decoration: underline; }
   .empty { padding: 32px; text-align: center; color: var(--muted); }
   footer { margin-top: 24px; color: var(--muted); font-size: .8rem; }
 
-  .headline { margin-top: 4px; color: var(--muted); font-size: .88rem; }
-  .toggle { font: inherit; font-size: .8rem; margin-top: 6px; padding: 2px 10px; cursor: pointer;
+  /* 한 줄 요약이 먼저, 보고서명은 그 아래 작게 */
+  .title { font-weight: 600; line-height: 1.45; }
+  .corr { margin-top: 3px; font-size: .84rem; color: var(--fix); }
+  .sub { margin-top: 5px; display: flex; flex-wrap: wrap; align-items: center; gap: 4px 10px;
+         font-size: .82rem; color: var(--muted); }
+  .sub a { color: var(--muted); }
+  .sub a:hover { color: var(--accent); }
+  .toggle { font: inherit; font-size: .8rem; padding: 2px 10px; cursor: pointer;
             border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--accent); }
-  tr.has-detail td { border-bottom: 0; }
-  tr.detail td { padding-top: 0; }
-  .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--bg); }
-  .card h4 { margin: 0 0 8px; font-size: .85rem; color: var(--muted); font-weight: 600; }
-  .card table { width: auto; min-width: 60%; margin-bottom: 12px; font-size: .88rem; }
-  .card table th, .card table td { padding: 5px 12px 5px 0; border-bottom: 1px solid var(--line); }
-  .card table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
-  .up { color: #c2410c; } .down { color: #1d4ed8; }
-  .fields { display: grid; grid-template-columns: minmax(110px, max-content) 1fr; gap: 6px 16px;
-            margin: 0 0 12px; font-size: .88rem; }
+  tr.has-detail > td { border-bottom: 0 !important; }
+  tr.detail > td { padding-top: 0 !important; }
+
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--bg);
+          overflow-wrap: anywhere; }
+  .card h4 { margin: 14px 0 8px; font-size: .85rem; color: var(--muted); font-weight: 600; }
+  .card h4:first-child { margin-top: 0; }
+  .scroll { overflow-x: auto; }
+  .metrics { border-collapse: collapse; font-size: .88rem; margin-bottom: 4px; }
+  .metrics th, .metrics td { padding: 6px 14px 6px 0; border-bottom: 1px solid var(--line); text-align: right; white-space: nowrap; }
+  .metrics th { color: var(--muted); font-weight: 600; font-size: .8rem; }
+  .metrics th:first-child, .metrics td:first-child { text-align: left; }
+  .metrics td { font-variant-numeric: tabular-nums; }
+  .up { color: var(--up); } .down { color: var(--down); }
+  .fields { display: grid; grid-template-columns: minmax(120px, max-content) 1fr; gap: 6px 16px;
+            margin: 0; font-size: .88rem; }
   .fields dt { color: var(--muted); }
-  .fields dd { margin: 0; word-break: break-all; }
-  .note { font-size: .82rem; color: var(--muted); margin: 0 0 10px; white-space: pre-line; }
-  .src { font-size: .78rem; color: var(--muted); }
+  .fields dd { margin: 0; }
+  .fields dt.grp { grid-column: 1 / -1; color: var(--text); font-weight: 600; margin-top: 4px; }
+  .fields dt.in { padding-left: 12px; }
+  .note { margin: 0; padding-left: 18px; font-size: .84rem; color: var(--muted); }
+  .note li { margin-bottom: 3px; }
+  details.more summary { cursor: pointer; font-size: .8rem; color: var(--accent); margin: 2px 0 0 18px; }
+  .src { margin-top: 14px; font-size: .78rem; color: var(--muted); }
   .src a { color: var(--accent); }
 
   @media (max-width: 640px) {
-    thead { display: none; }
-    tr { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 12px 14px;
-         border-bottom: 1px solid var(--line); }
-    tr:last-child { border-bottom: 0; }
-    td { border: 0; padding: 0; }
-    td.report { grid-column: 1 / -1; margin-top: 4px; }
+    .chips { flex-wrap: nowrap; overflow-x: auto; padding-bottom: 4px; }
+    #list, #list > tbody { display: block; }
+    #list > thead { display: none; }
+    #list > tbody > tr { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 12px 14px;
+                         border-bottom: 1px solid var(--line); }
+    #list > tbody > tr:last-child { border-bottom: 0; }
+    #list > tbody > tr > td { border: 0; padding: 0; width: auto; min-width: 0; }
     td.cat { grid-column: 1 / -1; order: -1; }
-    tr.detail { display: block; padding-top: 0; }
-    tr.detail td { display: block; }
-    .fields { grid-template-columns: 1fr; gap: 0 0; }
+    td.report { grid-column: 1 / -1; margin-top: 4px; }
+    #list > tbody > tr.has-detail { border-bottom: 0; padding-bottom: 6px; }
+    #list > tbody > tr.detail { display: block; padding-top: 0; }
+    #list > tbody > tr.detail > td { display: block; }
+    .card { padding: 12px; }
+    .fields { grid-template-columns: 1fr; gap: 0; }
     .fields dd { margin-bottom: 8px; }
-    .card { overflow-x: auto; }
+    .fields dt.in, .fields dd.in { padding-left: 12px; }
   }
 </style>
 </head>
@@ -102,29 +129,31 @@
       <option value="90">최근 3개월</option>
       <option value="365" selected>최근 1년</option>
     </select>
-    <input id="q" type="search" placeholder="보고서명 · 회사명 검색" aria-label="검색">
+    <input id="q" type="search" placeholder="회사명 · 보고서명 · 내용 검색" aria-label="검색">
   </div>
   <div class="chips" id="chips"></div>
 
   <div class="summary" id="summary"></div>
   <div class="table-box">
-    <table>
-      <thead><tr><th>접수일</th><th>회사</th><th>종류</th><th>보고서명</th></tr></thead>
+    <table id="list">
+      <thead><tr><th>접수일</th><th>회사</th><th>종류</th><th>내용</th></tr></thead>
       <tbody id="rows"></tbody>
     </table>
   </div>
 
   <footer>
     자료: 금융감독원 전자공시시스템(DART) 오픈API · 보고서명을 누르면 DART 원문이 열립니다.
-    · '핵심 내용'은 최근 3개월 공시에 대해 원문 표에서 자동으로 뽑은 것입니다.
+    · 한 줄 요약과 '핵심 내용'은 최근 3개월 공시에 대해 원문 표에서 자동으로 뽑은 것입니다.
   </footer>
 </div>
 
 <script>
   const NEW_DAYS = 3; // 최근 며칠 안의 공시에 NEW 표시
+  const NOTE_SHOWN = 3; // 참고 사항을 처음에 몇 줄 보여줄지
   const $ = id => document.getElementById(id);
   let data = { items: [], categories: [], companies: [] };
   let summaries = {};          // 접수번호 → 원문에서 뽑은 핵심 내용 (최근 3개월분)
+  let summarySince = "";       // 이 날짜 이후 공시만 핵심 내용이 있다
   const selected = new Set();
   const opened = new Set();    // 펼쳐 둔 공시
 
@@ -137,34 +166,47 @@
     return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
   }
 
+  function reportCell(i, s, open, isNew) {
+    const badges = (isNew ? '<span class="badge new">NEW</span>' : "") +
+                   (/정정/.test(i.report_nm) ? '<span class="badge fix">정정</span>' : "");
+    const link = `<a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.report_nm)} ↗</a>`;
+    if (s && s.headline) {
+      return `<div class="title">${esc(s.headline)}${badges}</div>
+        ${s.correction ? `<div class="corr">정정 사유: ${esc(s.correction)}</div>` : ""}
+        <div class="sub">${link}
+          <button class="toggle" data-id="${esc(i.rcept_no)}" aria-expanded="${open}">${open ? "접기 ▴" : "핵심 내용 ▾"}</button></div>`;
+    }
+    const why = s ? "" : (summarySince && i.rcept_dt < summarySince ? "핵심 내용은 최근 3개월 공시만 제공" : "핵심 내용 준비 중");
+    return `<div class="title">${link}${badges}</div>
+      <div class="sub">${s ? `<button class="toggle" data-id="${esc(i.rcept_no)}" aria-expanded="${open}">${open ? "접기 ▴" : "핵심 내용 ▾"}</button>` : esc(why)}</div>`;
+  }
+
   function render() {
     const corp = $("corp").value;
     const from = daysAgo(Number($("period").value));
     const q = $("q").value.trim().toLowerCase();
     const newFrom = daysAgo(NEW_DAYS);
 
-    const list = data.items.filter(i =>
-      (!corp || i.corp_name === corp) &&
-      i.rcept_dt >= from &&
-      (selected.size === 0 || selected.has(i.category)) &&
-      (!q || (i.report_nm + " " + i.corp_name).toLowerCase().includes(q))
-    );
+    const list = data.items.filter(i => {
+      const s = summaries[i.rcept_no];
+      return (!corp || i.corp_name === corp) &&
+        i.rcept_dt >= from &&
+        (selected.size === 0 || selected.has(i.category)) &&
+        (!q || [i.report_nm, i.corp_name, s && s.headline].join(" ").toLowerCase().includes(q));
+    });
 
     $("summary").textContent = `${list.length}건`;
     $("rows").innerHTML = list.length ? list.map(i => {
       const s = summaries[i.rcept_no];
-      const open = opened.has(i.rcept_no);
+      const open = !!s && opened.has(i.rcept_no);
       return `
       <tr class="${open ? "has-detail" : ""}">
         <td class="date">${esc(i.rcept_dt)}</td>
         <td class="corp">${esc(i.corp_name)}</td>
         <td class="cat"><span class="tag">${esc(i.category)}</span></td>
-        <td class="report"><a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.report_nm)}</a>${i.rcept_dt >= newFrom ? '<span class="new">NEW</span>' : ""}
-          ${s && s.headline ? `<div class="headline">${esc(s.headline)}</div>` : ""}
-          ${s ? `<button class="toggle" data-id="${esc(i.rcept_no)}" aria-expanded="${open}">${open ? "접기 ▴" : "핵심 내용 ▾"}</button>` : ""}
-        </td>
+        <td class="report">${reportCell(i, s, open, i.rcept_dt >= newFrom)}</td>
       </tr>
-      ${s && open ? `<tr class="detail"><td colspan="4">${card(i, s)}</td></tr>` : ""}`;
+      ${open ? `<tr class="detail"><td colspan="4">${card(i, s)}</td></tr>` : ""}`;
     }).join("") : `<tr><td class="empty" colspan="4">조건에 맞는 공시가 없습니다.</td></tr>`;
   }
 
@@ -177,16 +219,33 @@
     if (s.earnings) {
       const e = s.earnings;
       html += `<h4>${esc(e.period || "")} 실적 (잠정)</h4>
-        <table><thead><tr><th>항목</th><th>금액</th><th>전기 대비</th><th>전년동기 대비</th></tr></thead><tbody>
-        ${e.rows.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${esc(r.value)}</td>
-          <td class="num ${pctClass(r.qoq)}">${esc(r.qoq)}</td><td class="num ${pctClass(r.yoy)}">${esc(r.yoy)}</td></tr>`).join("")}
-        </tbody></table>`;
+        <div class="scroll"><table class="metrics">
+        <thead><tr><th>항목</th><th>${esc(e.period || "당기")}</th><th>${esc(e.base_period || "전년동기")}</th><th>전기 대비</th><th>전년동기 대비</th></tr></thead>
+        <tbody>${e.rows.map(r => `<tr><td>${esc(r.name)}</td><td>${esc(r.value)}</td><td>${esc(r.base || "-")}</td>
+          <td class="${pctClass(r.qoq)}">${esc(r.qoq)}</td><td class="${pctClass(r.yoy)}">${esc(r.yoy)}</td></tr>`).join("")}
+        </tbody></table></div>`;
     }
     if (s.fields.length) {
-      html += `<h4>주요 내용</h4><dl class="fields">${s.fields.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`;
+      let lastGroup = null;
+      const items = s.fields.map(([k, v, g]) => {
+        let head = "";
+        if (g && g !== lastGroup) head = `<dt class="grp">${esc(g)}</dt>`;
+        lastGroup = g;
+        const cls = g ? ' class="in"' : "";
+        return `${head}<dt${cls}>${esc(k)}</dt><dd${cls}>${esc(v)}</dd>`;
+      }).join("");
+      html += `<h4>주요 내용</h4><dl class="fields">${items}</dl>`;
     }
-    if (s.note) html += `<h4>참고 사항</h4><p class="note">${esc(s.note)}</p>`;
-    html += `<div class="src">공시 원문에서 자동으로 뽑은 내용입니다. 정확한 내용은 <a href="${esc(i.link)}" target="_blank" rel="noopener">DART 원문</a>을 확인하세요.</div>`;
+    const note = Array.isArray(s.note) ? s.note : (s.note ? [s.note] : []);
+    if (note.length) {
+      const li = p => `<li>${esc(p)}</li>`;
+      html += `<h4>참고 사항</h4><ul class="note">${note.slice(0, NOTE_SHOWN).map(li).join("")}</ul>`;
+      if (note.length > NOTE_SHOWN) {
+        html += `<details class="more"><summary>더 보기 (${note.length - NOTE_SHOWN})</summary>
+          <ul class="note">${note.slice(NOTE_SHOWN).map(li).join("")}</ul></details>`;
+      }
+    }
+    html += `<div class="src">공시 원문에서 자동으로 뽑은 내용입니다. '약'은 반올림한 값입니다. 정확한 내용은 <a href="${esc(i.link)}" target="_blank" rel="noopener">DART 원문</a>을 확인하세요.</div>`;
     return `<div class="card">${html}</div>`;
   }
 
@@ -231,7 +290,12 @@
 
   const load = url => fetch(url, { cache: "no-store" }).then(r => r.ok ? r.json() : null);
   Promise.all([load("data/disclosures.json"), load("data/summaries.json").catch(() => null)])
-    .then(([d, s]) => { data = d; summaries = (s && s.items) || {}; setup(); })
+    .then(([d, s]) => {
+      data = d;
+      summaries = (s && s.items) || {};
+      summarySince = (s && s.since) || "";
+      setup();
+    })
     .catch(() => { $("meta").textContent = "공시 자료를 불러오지 못했습니다."; });
 </script>
 </body>
