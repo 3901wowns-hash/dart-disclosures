@@ -1,0 +1,174 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>관심기업 주요공시</title>
+<style>
+  :root {
+    --bg: #f6f7f9; --panel: #ffffff; --text: #1a1d21; --muted: #6b7280; --line: #e5e7eb;
+    --accent: #1d4ed8; --accent-soft: #e8eefc; --new: #b45309; --new-soft: #fef3c7;
+    color-scheme: light;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #111316; --panel: #1a1d21; --text: #e6e8eb; --muted: #9aa1ab; --line: #2c3036;
+      --accent: #7aa2ff; --accent-soft: #1e2a46; --new: #fbbf24; --new-soft: #3a2d0f;
+      color-scheme: dark;
+    }
+  }
+  * { box-sizing: border-box; }
+  body { margin: 0; background: var(--bg); color: var(--text);
+         font: 15px/1.5 -apple-system, "Segoe UI", "Malgun Gothic", "Apple SD Gothic Neo", sans-serif; }
+  .wrap { max-width: 1080px; margin: 0 auto; padding: 28px 16px 48px; }
+  header h1 { margin: 0 0 4px; font-size: 1.5rem; }
+  header p { margin: 0; color: var(--muted); font-size: .9rem; }
+
+  .filters { display: flex; flex-wrap: wrap; gap: 10px; margin: 22px 0 12px; }
+  .filters select, .filters input {
+    font: inherit; color: var(--text); background: var(--panel);
+    border: 1px solid var(--line); border-radius: 8px; padding: 8px 10px; min-width: 0;
+  }
+  .filters input { flex: 1 1 200px; }
+  .chips { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 16px; }
+  .chip { font: inherit; font-size: .85rem; cursor: pointer; border: 1px solid var(--line);
+          background: var(--panel); color: var(--text); border-radius: 999px; padding: 4px 12px; }
+  .chip[aria-pressed="true"] { background: var(--accent); border-color: var(--accent); color: #fff; }
+
+  .summary { color: var(--muted); font-size: .88rem; margin-bottom: 8px; }
+  .table-box { background: var(--panel); border: 1px solid var(--line); border-radius: 10px; overflow-x: auto; }
+  table { width: 100%; border-collapse: collapse; }
+  th, td { text-align: left; padding: 10px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+  th { font-size: .82rem; color: var(--muted); font-weight: 600; white-space: nowrap; }
+  tr:last-child td { border-bottom: 0; }
+  td.date { white-space: nowrap; font-variant-numeric: tabular-nums; }
+  td.corp { white-space: nowrap; font-weight: 600; }
+  .tag { display: inline-block; font-size: .78rem; padding: 2px 8px; border-radius: 6px;
+         background: var(--accent-soft); color: var(--accent); white-space: nowrap; }
+  .new { display: inline-block; font-size: .72rem; font-weight: 700; padding: 1px 6px; border-radius: 4px;
+         background: var(--new-soft); color: var(--new); margin-left: 6px; }
+  a { color: var(--text); text-decoration: none; }
+  a:hover { color: var(--accent); text-decoration: underline; }
+  .empty { padding: 32px; text-align: center; color: var(--muted); }
+  footer { margin-top: 24px; color: var(--muted); font-size: .8rem; }
+
+  @media (max-width: 640px) {
+    thead { display: none; }
+    tr { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 12px 14px;
+         border-bottom: 1px solid var(--line); }
+    tr:last-child { border-bottom: 0; }
+    td { border: 0; padding: 0; }
+    td.report { grid-column: 1 / -1; margin-top: 4px; }
+    td.cat { grid-column: 1 / -1; order: -1; }
+  }
+</style>
+</head>
+<body>
+<div class="wrap">
+  <header>
+    <h1>관심기업 주요공시</h1>
+    <p id="meta">불러오는 중…</p>
+  </header>
+
+  <div class="filters">
+    <select id="corp" aria-label="회사"><option value="">전체 회사</option></select>
+    <select id="period" aria-label="기간">
+      <option value="7">최근 1주</option>
+      <option value="30">최근 1개월</option>
+      <option value="90">최근 3개월</option>
+      <option value="365" selected>최근 1년</option>
+    </select>
+    <input id="q" type="search" placeholder="보고서명 · 회사명 검색" aria-label="검색">
+  </div>
+  <div class="chips" id="chips"></div>
+
+  <div class="summary" id="summary"></div>
+  <div class="table-box">
+    <table>
+      <thead><tr><th>접수일</th><th>회사</th><th>종류</th><th>보고서명</th></tr></thead>
+      <tbody id="rows"></tbody>
+    </table>
+  </div>
+
+  <footer>
+    자료: 금융감독원 전자공시시스템(DART) 오픈API · 보고서명을 누르면 DART 원문이 열립니다.
+  </footer>
+</div>
+
+<script>
+  const NEW_DAYS = 3; // 최근 며칠 안의 공시에 NEW 표시
+  const $ = id => document.getElementById(id);
+  let data = { items: [], categories: [], companies: [] };
+  const selected = new Set();
+
+  function daysAgo(n) {
+    const d = new Date(); d.setDate(d.getDate() - n);
+    return d.toISOString().slice(0, 10);
+  }
+
+  function esc(s) {
+    return String(s).replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  }
+
+  function render() {
+    const corp = $("corp").value;
+    const from = daysAgo(Number($("period").value));
+    const q = $("q").value.trim().toLowerCase();
+    const newFrom = daysAgo(NEW_DAYS);
+
+    const list = data.items.filter(i =>
+      (!corp || i.corp_name === corp) &&
+      i.rcept_dt >= from &&
+      (selected.size === 0 || selected.has(i.category)) &&
+      (!q || (i.report_nm + " " + i.corp_name).toLowerCase().includes(q))
+    );
+
+    $("summary").textContent = `${list.length}건`;
+    $("rows").innerHTML = list.length ? list.map(i => `
+      <tr>
+        <td class="date">${esc(i.rcept_dt)}</td>
+        <td class="corp">${esc(i.corp_name)}</td>
+        <td class="cat"><span class="tag">${esc(i.category)}</span></td>
+        <td class="report"><a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.report_nm)}</a>${i.rcept_dt >= newFrom ? '<span class="new">NEW</span>' : ""}</td>
+      </tr>`).join("") : `<tr><td class="empty" colspan="4">조건에 맞는 공시가 없습니다.</td></tr>`;
+  }
+
+  function setup() {
+    $("meta").textContent = `관심기업 ${data.companies.length}곳 · 최근 1년 · 마지막 갱신 ${data.updated_at} (한국시간)`;
+    for (const name of data.companies) $("corp").add(new Option(name, name));
+
+    const chips = $("chips");
+    const all = document.createElement("button");
+    all.className = "chip"; all.textContent = "전체 종류"; all.setAttribute("aria-pressed", "true");
+    chips.append(all);
+    const buttons = data.categories.map(cat => {
+      const b = document.createElement("button");
+      b.className = "chip"; b.textContent = cat; b.setAttribute("aria-pressed", "false");
+      b.onclick = () => {
+        selected.has(cat) ? selected.delete(cat) : selected.add(cat);
+        b.setAttribute("aria-pressed", String(selected.has(cat)));
+        all.setAttribute("aria-pressed", String(selected.size === 0));
+        render();
+      };
+      chips.append(b);
+      return b;
+    });
+    all.onclick = () => {
+      selected.clear();
+      buttons.forEach(b => b.setAttribute("aria-pressed", "false"));
+      all.setAttribute("aria-pressed", "true");
+      render();
+    };
+
+    ["corp", "period"].forEach(id => $(id).onchange = render);
+    $("q").oninput = render;
+    render();
+  }
+
+  fetch("data/disclosures.json", { cache: "no-store" })
+    .then(r => r.json())
+    .then(d => { data = d; setup(); })
+    .catch(() => { $("meta").textContent = "공시 자료를 불러오지 못했습니다."; });
+</script>
+</body>
+</html>

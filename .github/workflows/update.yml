@@ -1,0 +1,58 @@
+name: 공시 수집 및 사이트 배포
+
+on:
+  schedule:
+    - cron: "0 1 * * *"   # 매일 01:00 UTC = 한국시간 오전 10시
+  workflow_dispatch:       # Actions 화면에서 수동 실행
+    inputs:
+      full:
+        description: "모든 기업을 1년치로 다시 받기 (키워드를 추가했을 때)"
+        type: boolean
+        default: false
+  push:
+    branches: [main]
+    paths: ["docs/index.html", "config.json", "collect.py", ".github/workflows/update.yml"]
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: update
+  cancel-in-progress: false
+
+jobs:
+  update:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deploy.outputs.page_url }}
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+
+      - run: pip install -r requirements.txt
+
+      - name: 공시 수집
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python collect.py ${{ inputs.full && '--full' || '' }}
+
+      - name: 수집 결과 저장
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add docs/data/disclosures.json
+          git diff --cached --quiet || git commit -m "공시 갱신 $(TZ=Asia/Seoul date +'%Y-%m-%d %H:%M')"
+          git push
+
+      - uses: actions/configure-pages@v5
+      - uses: actions/upload-pages-artifact@v3
+        with:
+          path: docs
+      - id: deploy
+        uses: actions/deploy-pages@v4

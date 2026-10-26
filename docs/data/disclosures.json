@@ -1,0 +1,845 @@
+{
+ "updated_at": "2026-10-26 15:30",
+ "keep_from": "2025-10-26",
+ "companies": [
+  "RFHIC",
+  "현대건설",
+  "미래에셋증권",
+  "삼성전자",
+  "SK하이닉스",
+  "LG이노텍",
+  "삼성전기"
+ ],
+ "categories": [
+  "잠정실적",
+  "유상증자",
+  "무상증자",
+  "유형자산 취득·처분",
+  "타법인주식 취득·처분",
+  "사채 발행",
+  "자기주식",
+  "합병·분할",
+  "영업양수도"
+ ],
+ "fetched_corp_codes": [
+  "00105961",
+  "00111722",
+  "00126371",
+  "00126380",
+  "00164478",
+  "00164779",
+  "01078178"
+ ],
+ "items": [
+  {
+   "rcept_no": "20261008800004",
+   "rcept_dt": "2026-10-08",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261008800004"
+  },
+  {
+   "rcept_no": "20260928800821",
+   "rcept_dt": "2026-09-28",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "유형자산취득결정(종속회사의주요경영사항)",
+   "category": "유형자산 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260928800821"
+  },
+  {
+   "rcept_no": "20260821800388",
+   "rcept_dt": "2026-08-21",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "회사합병결정(종속회사의주요경영사항)",
+   "category": "합병·분할",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821800388"
+  },
+  {
+   "rcept_no": "20260821000616",
+   "rcept_dt": "2026-08-21",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260821000616"
+  },
+  {
+   "rcept_no": "20260819000254",
+   "rcept_dt": "2026-08-19",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260819000254"
+  },
+  {
+   "rcept_no": "20260812800085",
+   "rcept_dt": "2026-08-12",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260812800085"
+  },
+  {
+   "rcept_no": "20260811000401",
+   "rcept_dt": "2026-08-11",
+   "corp_code": "01078178",
+   "corp_name": "RFHIC",
+   "stock_code": "218410",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260811000401"
+  },
+  {
+   "rcept_no": "20260807000537",
+   "rcept_dt": "2026-08-07",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260807000537"
+  },
+  {
+   "rcept_no": "20260731800467",
+   "rcept_dt": "2026-07-31",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260731800467"
+  },
+  {
+   "rcept_no": "20260730800303",
+   "rcept_dt": "2026-07-30",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800303"
+  },
+  {
+   "rcept_no": "20260730800103",
+   "rcept_dt": "2026-07-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800103"
+  },
+  {
+   "rcept_no": "20260730800077",
+   "rcept_dt": "2026-07-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260730800077"
+  },
+  {
+   "rcept_no": "20260729800013",
+   "rcept_dt": "2026-07-29",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260729800013"
+  },
+  {
+   "rcept_no": "20260727900138",
+   "rcept_dt": "2026-07-27",
+   "corp_code": "01078178",
+   "corp_name": "RFHIC",
+   "stock_code": "218410",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727900138"
+  },
+  {
+   "rcept_no": "20260727800269",
+   "rcept_dt": "2026-07-27",
+   "corp_code": "00105961",
+   "corp_name": "LG이노텍",
+   "stock_code": "011070",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260727800269"
+  },
+  {
+   "rcept_no": "20260713000395",
+   "rcept_dt": "2026-07-13",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260713000395"
+  },
+  {
+   "rcept_no": "20260710000008",
+   "rcept_dt": "2026-07-10",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]주요사항보고서(유상증자결정)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260710000008"
+  },
+  {
+   "rcept_no": "20260707800004",
+   "rcept_dt": "2026-07-07",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707800004"
+  },
+  {
+   "rcept_no": "20260707000403",
+   "rcept_dt": "2026-07-07",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260707000403"
+  },
+  {
+   "rcept_no": "20260706000403",
+   "rcept_dt": "2026-07-06",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]주요사항보고서(유상증자결정)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260706000403"
+  },
+  {
+   "rcept_no": "20260702800664",
+   "rcept_dt": "2026-07-02",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260702800664"
+  },
+  {
+   "rcept_no": "20260624000420",
+   "rcept_dt": "2026-06-24",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(유상증자결정)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260624000420"
+  },
+  {
+   "rcept_no": "20260617000504",
+   "rcept_dt": "2026-06-17",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "[기재정정]주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000504"
+  },
+  {
+   "rcept_no": "20260617000479",
+   "rcept_dt": "2026-06-17",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260617000479"
+  },
+  {
+   "rcept_no": "20260609000517",
+   "rcept_dt": "2026-06-09",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "주요사항보고서(전환사채권발행결정)",
+   "category": "사채 발행",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260609000517"
+  },
+  {
+   "rcept_no": "20260513000549",
+   "rcept_dt": "2026-05-13",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260513000549"
+  },
+  {
+   "rcept_no": "20260512800126",
+   "rcept_dt": "2026-05-12",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260512800126"
+  },
+  {
+   "rcept_no": "20260430800332",
+   "rcept_dt": "2026-04-30",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430800332"
+  },
+  {
+   "rcept_no": "20260430800097",
+   "rcept_dt": "2026-04-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430800097"
+  },
+  {
+   "rcept_no": "20260430800083",
+   "rcept_dt": "2026-04-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260430800083"
+  },
+  {
+   "rcept_no": "20260428800324",
+   "rcept_dt": "2026-04-28",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260428800324"
+  },
+  {
+   "rcept_no": "20260427900384",
+   "rcept_dt": "2026-04-27",
+   "corp_code": "01078178",
+   "corp_name": "RFHIC",
+   "stock_code": "218410",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260427900384"
+  },
+  {
+   "rcept_no": "20260427800331",
+   "rcept_dt": "2026-04-27",
+   "corp_code": "00105961",
+   "corp_name": "LG이노텍",
+   "stock_code": "011070",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260427800331"
+  },
+  {
+   "rcept_no": "20260423800001",
+   "rcept_dt": "2026-04-23",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260423800001"
+  },
+  {
+   "rcept_no": "20260422000633",
+   "rcept_dt": "2026-04-22",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260422000633"
+  },
+  {
+   "rcept_no": "20260407800002",
+   "rcept_dt": "2026-04-07",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260407800002"
+  },
+  {
+   "rcept_no": "20260330001812",
+   "rcept_dt": "2026-03-30",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260330001812"
+  },
+  {
+   "rcept_no": "20260324800457",
+   "rcept_dt": "2026-03-24",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "유형자산취득결정",
+   "category": "유형자산 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260324800457"
+  },
+  {
+   "rcept_no": "20260318001203",
+   "rcept_dt": "2026-03-18",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260318001203"
+  },
+  {
+   "rcept_no": "20260318001062",
+   "rcept_dt": "2026-03-18",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260318001062"
+  },
+  {
+   "rcept_no": "20260303801410",
+   "rcept_dt": "2026-03-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]유상증자결정(종속회사의주요경영사항)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303801410"
+  },
+  {
+   "rcept_no": "20260303801392",
+   "rcept_dt": "2026-03-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]영업양수결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303801392"
+  },
+  {
+   "rcept_no": "20260303801376",
+   "rcept_dt": "2026-03-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]영업양도결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303801376"
+  },
+  {
+   "rcept_no": "20260303801364",
+   "rcept_dt": "2026-03-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303801364"
+  },
+  {
+   "rcept_no": "20260303801345",
+   "rcept_dt": "2026-03-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "유상증자결정(종속회사의주요경영사항)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260303801345"
+  },
+  {
+   "rcept_no": "20260224004501",
+   "rcept_dt": "2026-02-24",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260224004501"
+  },
+  {
+   "rcept_no": "20260213800012",
+   "rcept_dt": "2026-02-13",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]유상증자결정(종속회사의주요경영사항)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213800012"
+  },
+  {
+   "rcept_no": "20260213800007",
+   "rcept_dt": "2026-02-13",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]영업양수결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213800007"
+  },
+  {
+   "rcept_no": "20260213800004",
+   "rcept_dt": "2026-02-13",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]영업양도결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213800004"
+  },
+  {
+   "rcept_no": "20260213800001",
+   "rcept_dt": "2026-02-13",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260213800001"
+  },
+  {
+   "rcept_no": "20260204800840",
+   "rcept_dt": "2026-02-04",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260204800840"
+  },
+  {
+   "rcept_no": "20260129800008",
+   "rcept_dt": "2026-01-29",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260129800008"
+  },
+  {
+   "rcept_no": "20260129800002",
+   "rcept_dt": "2026-01-29",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260129800002"
+  },
+  {
+   "rcept_no": "20260129000004",
+   "rcept_dt": "2026-01-29",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260129000004"
+  },
+  {
+   "rcept_no": "20260129000003",
+   "rcept_dt": "2026-01-29",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260129000003"
+  },
+  {
+   "rcept_no": "20260128800964",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "영업양수결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128800964"
+  },
+  {
+   "rcept_no": "20260128800951",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "영업양도결정(종속회사의주요경영사항)",
+   "category": "영업양수도",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128800951"
+  },
+  {
+   "rcept_no": "20260128800941",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "유상증자결정(종속회사의주요경영사항)",
+   "category": "유상증자",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128800941"
+  },
+  {
+   "rcept_no": "20260128800915",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128800915"
+  },
+  {
+   "rcept_no": "20260128800709",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128800709"
+  },
+  {
+   "rcept_no": "20260128000366",
+   "rcept_dt": "2026-01-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260128000366"
+  },
+  {
+   "rcept_no": "20260127000099",
+   "rcept_dt": "2026-01-27",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "[기재정정]주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260127000099"
+  },
+  {
+   "rcept_no": "20260126900461",
+   "rcept_dt": "2026-01-26",
+   "corp_code": "01078178",
+   "corp_name": "RFHIC",
+   "stock_code": "218410",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260126900461"
+  },
+  {
+   "rcept_no": "20260126800920",
+   "rcept_dt": "2026-01-26",
+   "corp_code": "00105961",
+   "corp_name": "LG이노텍",
+   "stock_code": "011070",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260126800920"
+  },
+  {
+   "rcept_no": "20260126000516",
+   "rcept_dt": "2026-01-26",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260126000516"
+  },
+  {
+   "rcept_no": "20260126000001",
+   "rcept_dt": "2026-01-26",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260126000001"
+  },
+  {
+   "rcept_no": "20260123800202",
+   "rcept_dt": "2026-01-23",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260123800202"
+  },
+  {
+   "rcept_no": "20260108800515",
+   "rcept_dt": "2026-01-08",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260108800515"
+  },
+  {
+   "rcept_no": "20260108800001",
+   "rcept_dt": "2026-01-08",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260108800001"
+  },
+  {
+   "rcept_no": "20260107000715",
+   "rcept_dt": "2026-01-07",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20260107000715"
+  },
+  {
+   "rcept_no": "20251203800001",
+   "rcept_dt": "2025-12-03",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251203800001"
+  },
+  {
+   "rcept_no": "20251106800074",
+   "rcept_dt": "2025-11-06",
+   "corp_code": "00111722",
+   "corp_name": "미래에셋증권",
+   "stock_code": "006800",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251106800074"
+  },
+  {
+   "rcept_no": "20251031800229",
+   "rcept_dt": "2025-10-31",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251031800229"
+  },
+  {
+   "rcept_no": "20251030800277",
+   "rcept_dt": "2025-10-30",
+   "corp_code": "00105961",
+   "corp_name": "LG이노텍",
+   "stock_code": "011070",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251030800277"
+  },
+  {
+   "rcept_no": "20251030800065",
+   "rcept_dt": "2025-10-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "[기재정정]연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251030800065"
+  },
+  {
+   "rcept_no": "20251030800056",
+   "rcept_dt": "2025-10-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251030800056"
+  },
+  {
+   "rcept_no": "20251030000502",
+   "rcept_dt": "2025-10-30",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251030000502"
+  },
+  {
+   "rcept_no": "20251029800191",
+   "rcept_dt": "2025-10-29",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029800191"
+  },
+  {
+   "rcept_no": "20251029800001",
+   "rcept_dt": "2025-10-29",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029800001"
+  },
+  {
+   "rcept_no": "20251029000378",
+   "rcept_dt": "2025-10-29",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029000378"
+  },
+  {
+   "rcept_no": "20251027900217",
+   "rcept_dt": "2025-10-27",
+   "corp_code": "01078178",
+   "corp_name": "RFHIC",
+   "stock_code": "218410",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251027900217"
+  }
+ ]
+}
