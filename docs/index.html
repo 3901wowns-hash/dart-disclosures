@@ -52,6 +52,25 @@
   .empty { padding: 32px; text-align: center; color: var(--muted); }
   footer { margin-top: 24px; color: var(--muted); font-size: .8rem; }
 
+  .headline { margin-top: 4px; color: var(--muted); font-size: .88rem; }
+  .toggle { font: inherit; font-size: .8rem; margin-top: 6px; padding: 2px 10px; cursor: pointer;
+            border: 1px solid var(--line); border-radius: 6px; background: var(--panel); color: var(--accent); }
+  tr.has-detail td { border-bottom: 0; }
+  tr.detail td { padding-top: 0; }
+  .card { border: 1px solid var(--line); border-radius: 8px; padding: 14px 16px; background: var(--bg); }
+  .card h4 { margin: 0 0 8px; font-size: .85rem; color: var(--muted); font-weight: 600; }
+  .card table { width: auto; min-width: 60%; margin-bottom: 12px; font-size: .88rem; }
+  .card table th, .card table td { padding: 5px 12px 5px 0; border-bottom: 1px solid var(--line); }
+  .card table td.num { text-align: right; font-variant-numeric: tabular-nums; white-space: nowrap; }
+  .up { color: #c2410c; } .down { color: #1d4ed8; }
+  .fields { display: grid; grid-template-columns: minmax(110px, max-content) 1fr; gap: 6px 16px;
+            margin: 0 0 12px; font-size: .88rem; }
+  .fields dt { color: var(--muted); }
+  .fields dd { margin: 0; word-break: break-all; }
+  .note { font-size: .82rem; color: var(--muted); margin: 0 0 10px; white-space: pre-line; }
+  .src { font-size: .78rem; color: var(--muted); }
+  .src a { color: var(--accent); }
+
   @media (max-width: 640px) {
     thead { display: none; }
     tr { display: grid; grid-template-columns: auto 1fr; gap: 2px 10px; padding: 12px 14px;
@@ -60,6 +79,11 @@
     td { border: 0; padding: 0; }
     td.report { grid-column: 1 / -1; margin-top: 4px; }
     td.cat { grid-column: 1 / -1; order: -1; }
+    tr.detail { display: block; padding-top: 0; }
+    tr.detail td { display: block; }
+    .fields { grid-template-columns: 1fr; gap: 0 0; }
+    .fields dd { margin-bottom: 8px; }
+    .card { overflow-x: auto; }
   }
 </style>
 </head>
@@ -92,6 +116,7 @@
 
   <footer>
     자료: 금융감독원 전자공시시스템(DART) 오픈API · 보고서명을 누르면 DART 원문이 열립니다.
+    · '핵심 내용'은 최근 3개월 공시에 대해 원문 표에서 자동으로 뽑은 것입니다.
   </footer>
 </div>
 
@@ -99,7 +124,9 @@
   const NEW_DAYS = 3; // 최근 며칠 안의 공시에 NEW 표시
   const $ = id => document.getElementById(id);
   let data = { items: [], categories: [], companies: [] };
+  let summaries = {};          // 접수번호 → 원문에서 뽑은 핵심 내용 (최근 3개월분)
   const selected = new Set();
+  const opened = new Set();    // 펼쳐 둔 공시
 
   function daysAgo(n) {
     const d = new Date(); d.setDate(d.getDate() - n);
@@ -124,13 +151,43 @@
     );
 
     $("summary").textContent = `${list.length}건`;
-    $("rows").innerHTML = list.length ? list.map(i => `
-      <tr>
+    $("rows").innerHTML = list.length ? list.map(i => {
+      const s = summaries[i.rcept_no];
+      const open = opened.has(i.rcept_no);
+      return `
+      <tr class="${open ? "has-detail" : ""}">
         <td class="date">${esc(i.rcept_dt)}</td>
         <td class="corp">${esc(i.corp_name)}</td>
         <td class="cat"><span class="tag">${esc(i.category)}</span></td>
-        <td class="report"><a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.report_nm)}</a>${i.rcept_dt >= newFrom ? '<span class="new">NEW</span>' : ""}</td>
-      </tr>`).join("") : `<tr><td class="empty" colspan="4">조건에 맞는 공시가 없습니다.</td></tr>`;
+        <td class="report"><a href="${esc(i.link)}" target="_blank" rel="noopener">${esc(i.report_nm)}</a>${i.rcept_dt >= newFrom ? '<span class="new">NEW</span>' : ""}
+          ${s && s.headline ? `<div class="headline">${esc(s.headline)}</div>` : ""}
+          ${s ? `<button class="toggle" data-id="${esc(i.rcept_no)}" aria-expanded="${open}">${open ? "접기 ▴" : "핵심 내용 ▾"}</button>` : ""}
+        </td>
+      </tr>
+      ${s && open ? `<tr class="detail"><td colspan="4">${card(i, s)}</td></tr>` : ""}`;
+    }).join("") : `<tr><td class="empty" colspan="4">조건에 맞는 공시가 없습니다.</td></tr>`;
+  }
+
+  function pctClass(v) {
+    return /^\+|흑자/.test(v) ? "up" : /^-\d|적자/.test(v) ? "down" : "";
+  }
+
+  function card(i, s) {
+    let html = "";
+    if (s.earnings) {
+      const e = s.earnings;
+      html += `<h4>${esc(e.period || "")} 실적 (잠정)</h4>
+        <table><thead><tr><th>항목</th><th>금액</th><th>전기 대비</th><th>전년동기 대비</th></tr></thead><tbody>
+        ${e.rows.map(r => `<tr><td>${esc(r.name)}</td><td class="num">${esc(r.value)}</td>
+          <td class="num ${pctClass(r.qoq)}">${esc(r.qoq)}</td><td class="num ${pctClass(r.yoy)}">${esc(r.yoy)}</td></tr>`).join("")}
+        </tbody></table>`;
+    }
+    if (s.fields.length) {
+      html += `<h4>주요 내용</h4><dl class="fields">${s.fields.map(([k, v]) => `<dt>${esc(k)}</dt><dd>${esc(v)}</dd>`).join("")}</dl>`;
+    }
+    if (s.note) html += `<h4>참고 사항</h4><p class="note">${esc(s.note)}</p>`;
+    html += `<div class="src">공시 원문에서 자동으로 뽑은 내용입니다. 정확한 내용은 <a href="${esc(i.link)}" target="_blank" rel="noopener">DART 원문</a>을 확인하세요.</div>`;
+    return `<div class="card">${html}</div>`;
   }
 
   function setup() {
@@ -162,12 +219,19 @@
 
     ["corp", "period"].forEach(id => $(id).onchange = render);
     $("q").oninput = render;
+    $("rows").onclick = e => {
+      const b = e.target.closest(".toggle");
+      if (!b) return;
+      const id = b.dataset.id;
+      opened.has(id) ? opened.delete(id) : opened.add(id);
+      render();
+    };
     render();
   }
 
-  fetch("data/disclosures.json", { cache: "no-store" })
-    .then(r => r.json())
-    .then(d => { data = d; setup(); })
+  const load = url => fetch(url, { cache: "no-store" }).then(r => r.ok ? r.json() : null);
+  Promise.all([load("data/disclosures.json"), load("data/summaries.json").catch(() => null)])
+    .then(([d, s]) => { data = d; summaries = (s && s.items) || {}; setup(); })
     .catch(() => { $("meta").textContent = "공시 자료를 불러오지 못했습니다."; });
 </script>
 </body>

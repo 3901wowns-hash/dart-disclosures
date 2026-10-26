@@ -11,7 +11,7 @@ on:
         default: false
   push:
     branches: [main]
-    paths: ["docs/index.html", "config.json", "collect.py", ".github/workflows/update.yml"]
+    paths: ["docs/index.html", "config.json", "collect.py", "summarize.py", ".github/workflows/update.yml"]
 
 permissions:
   contents: write
@@ -42,11 +42,16 @@ jobs:
           DART_API_KEY: ${{ secrets.DART_API_KEY }}
         run: python collect.py ${{ inputs.full && '--full' || '' }}
 
+      - name: 핵심 내용 정리
+        env:
+          DART_API_KEY: ${{ secrets.DART_API_KEY }}
+        run: python summarize.py
+
       - name: 수집 결과 저장
         run: |
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add docs/data/disclosures.json
+          git add docs/data/disclosures.json docs/data/summaries.json
           git diff --cached --quiet || git commit -m "공시 갱신 $(TZ=Asia/Seoul date +'%Y-%m-%d %H:%M')"
           git push
 

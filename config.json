@@ -1,6 +1,7 @@
 {
   "keep_days": 365,
   "daily_lookback_days": 14,
+  "summary_days": 90,
   "companies": [
     { "name": "RFHIC", "stock_code": "218410" },
     { "name": "현대건설", "stock_code": "000720" },

@@ -19,6 +19,7 @@
 | 파일 | 역할 |
 |---|---|
 | `collect.py` | DART 에서 공시를 받아 `docs/data/disclosures.json` 에 저장 |
+| `summarize.py` | 최근 `summary_days`(90일) 공시의 원문 표에서 핵심 항목을 뽑아 `docs/data/summaries.json` 에 저장 (AI 없이 규칙 기반) |
 | `docs/index.html` | 사이트 화면 |
 | `.github/workflows/update.yml` | 매일 수집 → 커밋 → GitHub Pages 배포 |
 
