@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-27 14:56",
- "keep_from": "2025-10-27",
+ "updated_at": "2026-10-28 15:35",
+ "keep_from": "2025-10-28",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -32,6 +32,36 @@
  ],
  "items": [
   {
+   "rcept_no": "20261028800169",
+   "rcept_dt": "2026-10-28",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800169"
+  },
+  {
+   "rcept_no": "20261028800036",
+   "rcept_dt": "2026-10-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028800036"
+  },
+  {
+   "rcept_no": "20261028000014",
+   "rcept_dt": "2026-10-28",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "주요사항보고서(자기주식취득결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261028000014"
+  },
+  {
    "rcept_no": "20261027900110",
    "rcept_dt": "2026-10-27",
    "corp_code": "01078178",
@@ -40,6 +70,16 @@
    "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
    "category": "잠정실적",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027900110"
+  },
+  {
+   "rcept_no": "20261027800388",
+   "rcept_dt": "2026-10-27",
+   "corp_code": "00105961",
+   "corp_name": "LG이노텍",
+   "stock_code": "011070",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261027800388"
   },
   {
    "rcept_no": "20261008800004",
@@ -840,16 +880,6 @@
    "report_nm": "주요사항보고서(자기주식처분결정)",
    "category": "자기주식",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029000378"
-  },
-  {
-   "rcept_no": "20251027900217",
-   "rcept_dt": "2025-10-27",
-   "corp_code": "01078178",
-   "corp_name": "RFHIC",
-   "stock_code": "218410",
-   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "category": "잠정실적",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251027900217"
   }
  ]
 }
