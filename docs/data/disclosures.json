@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-29 15:43",
- "keep_from": "2025-10-29",
+ "updated_at": "2026-10-30 15:44",
+ "keep_from": "2025-10-30",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -32,6 +32,16 @@
  ],
  "items": [
   {
+   "rcept_no": "20261030800458",
+   "rcept_dt": "2026-10-30",
+   "corp_code": "00164478",
+   "corp_name": "현대건설",
+   "stock_code": "000720",
+   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
+   "category": "잠정실적",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261030800458"
+  },
+  {
    "rcept_no": "20261029800099",
    "rcept_dt": "2026-10-29",
    "corp_code": "00126380",
@@ -50,6 +60,16 @@
    "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
    "category": "잠정실적",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029800087"
+  },
+  {
+   "rcept_no": "20261029000539",
+   "rcept_dt": "2026-10-29",
+   "corp_code": "00126380",
+   "corp_name": "삼성전자",
+   "stock_code": "005930",
+   "report_nm": "주요사항보고서(자기주식처분결정)",
+   "category": "자기주식",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261029000539"
   },
   {
    "rcept_no": "20261028800169",
@@ -870,36 +890,6 @@
    "report_nm": "주요사항보고서(자기주식처분결정)",
    "category": "자기주식",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251030000502"
-  },
-  {
-   "rcept_no": "20251029800191",
-   "rcept_dt": "2025-10-29",
-   "corp_code": "00126371",
-   "corp_name": "삼성전기",
-   "stock_code": "009150",
-   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "category": "잠정실적",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029800191"
-  },
-  {
-   "rcept_no": "20251029800001",
-   "rcept_dt": "2025-10-29",
-   "corp_code": "00164779",
-   "corp_name": "SK하이닉스",
-   "stock_code": "000660",
-   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "category": "잠정실적",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029800001"
-  },
-  {
-   "rcept_no": "20251029000378",
-   "rcept_dt": "2025-10-29",
-   "corp_code": "00164779",
-   "corp_name": "SK하이닉스",
-   "stock_code": "000660",
-   "report_nm": "주요사항보고서(자기주식처분결정)",
-   "category": "자기주식",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251029000378"
   }
  ]
 }
