@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-10-31 15:35",
- "keep_from": "2025-10-31",
+ "updated_at": "2026-11-01 16:05",
+ "keep_from": "2025-11-01",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -840,16 +840,6 @@
    "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
    "category": "잠정실적",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251106800074"
-  },
-  {
-   "rcept_no": "20251031800229",
-   "rcept_dt": "2025-10-31",
-   "corp_code": "00164478",
-   "corp_name": "현대건설",
-   "stock_code": "000720",
-   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "category": "잠정실적",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251031800229"
   }
  ]
 }
