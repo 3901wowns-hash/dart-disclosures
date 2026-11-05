@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-04 16:13",
- "keep_from": "2025-11-04",
+ "updated_at": "2026-11-05 16:40",
+ "keep_from": "2025-11-05",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -31,6 +31,16 @@
   "01078178"
  ],
  "items": [
+  {
+   "rcept_no": "20261105800383",
+   "rcept_dt": "2026-11-05",
+   "corp_code": "00126371",
+   "corp_name": "삼성전기",
+   "stock_code": "009150",
+   "report_nm": "[기재정정]타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261105800383"
+  },
   {
    "rcept_no": "20261030800458",
    "rcept_dt": "2026-10-30",
