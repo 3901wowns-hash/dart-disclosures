@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-06 16:37",
- "keep_from": "2025-11-06",
+ "updated_at": "2026-11-07 15:48",
+ "keep_from": "2025-11-07",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -840,16 +840,6 @@
    "report_nm": "[기재정정]타법인주식및출자증권취득결정",
    "category": "타법인주식 취득·처분",
    "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251203800001"
-  },
-  {
-   "rcept_no": "20251106800074",
-   "rcept_dt": "2025-11-06",
-   "corp_code": "00111722",
-   "corp_name": "미래에셋증권",
-   "stock_code": "006800",
-   "report_nm": "연결재무제표기준영업(잠정)실적(공정공시)",
-   "category": "잠정실적",
-   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20251106800074"
   }
  ]
 }
