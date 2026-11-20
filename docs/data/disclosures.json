@@ -1,6 +1,6 @@
 {
- "updated_at": "2026-11-19 17:20",
- "keep_from": "2025-11-19",
+ "updated_at": "2026-11-20 17:00",
+ "keep_from": "2025-11-20",
  "companies": [
   "RFHIC",
   "현대건설",
@@ -31,6 +31,16 @@
   "01078178"
  ],
  "items": [
+  {
+   "rcept_no": "20261120800721",
+   "rcept_dt": "2026-11-20",
+   "corp_code": "00164779",
+   "corp_name": "SK하이닉스",
+   "stock_code": "000660",
+   "report_nm": "[기재정정]타법인주식및출자증권취득결정",
+   "category": "타법인주식 취득·처분",
+   "link": "https://dart.fss.or.kr/dsaf001/main.do?rcpNo=20261120800721"
+  },
   {
    "rcept_no": "20261112801045",
    "rcept_dt": "2026-11-12",
